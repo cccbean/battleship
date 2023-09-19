@@ -1,13 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Battleship</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  
-  <script src="main.js" type="module"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battleship</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Battleship</h1>
+    </header>
+
+    <main>
+      <img src="./img/smile.svg" alt="" id="drag-img">
+      <div class="grid-wrapper">
+        <div class="x-axis">
+          <p>1</p>
+          <p>2</p>
+          <p>3</p>
+          <p>4</p>
+          <p>5</p>
+          <p>6</p>
+          <p>7</p>
+          <p>8</p>
+          <p>9</p>
+          <p>10</p>
+        </div>
+        <div class="y-axis">
+          <p>10</p>
+          <p>9</p>
+          <p>8</p>
+          <p>7</p>
+          <p>6</p>
+          <p>5</p>
+          <p>4</p>
+          <p>3</p>
+          <p>2</p>
+          <p>1</p>
+        </div>
+        <div class="grid">
+          <div class="cell" data-x-coord="1" data-y-coord="10">
+            <div class="draggable" data-length="1" draggable="true"></div>
+          </div>
+          <div class="cell" data-x-coord="2" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="10">
+            <div class="draggable" data-length="1" draggable="true"></div>
+          </div>
+          <div class="cell" data-x-coord="4" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="8">
+            <div class="draggable" data-length="2" data-position="horizontal" draggable="true"></div>
+          </div>
+          <div class="cell" data-x-coord="2" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="6">
+            <div class="draggable" data-length="3" data-position="horizontal" draggable="true"></div>
+          </div>
+          <div class="cell" data-x-coord="2" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="4">
+            <div class="draggable" data-length="4" data-position="horizontal" draggable="true"></div>
+          </div>
+          <div class="cell" data-x-coord="2" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="1"></div>
+        </div>
+      </div>
+
+      <div class="grid-wrapper">
+        <div class="x-axis">
+          <p>1</p>
+          <p>2</p>
+          <p>3</p>
+          <p>4</p>
+          <p>5</p>
+          <p>6</p>
+          <p>7</p>
+          <p>8</p>
+          <p>9</p>
+          <p>10</p>
+        </div>
+        <div class="y-axis">
+          <p>10</p>
+          <p>9</p>
+          <p>8</p>
+          <p>7</p>
+          <p>6</p>
+          <p>5</p>
+          <p>4</p>
+          <p>3</p>
+          <p>2</p>
+          <p>1</p>
+        </div>
+        <div class="grid">
+          <div class="cell" data-x-coord="1" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="10"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="9"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="8"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="7"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="6"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="5"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="4"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="3"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="2"></div>
+          <div class="cell" data-x-coord="1" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="2" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="3" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="4" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="5" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="6" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="7" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="8" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="9" data-y-coord="1"></div>
+          <div class="cell" data-x-coord="10" data-y-coord="1"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="main.js" type="module"></script>
+  </body>
 </html>
