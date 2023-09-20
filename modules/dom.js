@@ -1,15 +1,17 @@
-import { generateRandomShipCoordinates } from "./game-logic.js";
+import { generateRandomShipCoordinates, spreadCoordinateArray } from "./game-logic.js";
 
 const generateCells = () => {
   const gameboardDiv = document.querySelectorAll('.grid');
   gameboardDiv.forEach((gameboard) => {
-    for (let i = 10; i >= 1; i--) {
-      for (let j = 1; j <= 10; j++) {
-        const cellDiv = document.createElement('div');
-        cellDiv.classList.add('cell');
-        cellDiv.dataset.xCoord = `${j}`;
-        cellDiv.dataset.yCoord = `${i}`;
-        gameboard.appendChild(cellDiv);
+    if (gameboard.id === 'computer') {
+      for (let i = 9; i >= 0; i--) {
+        for (let j = 0; j <= 9; j++) {
+          const cellDiv = document.createElement('div');
+          cellDiv.classList.add('cell');
+          cellDiv.dataset.xCoord = `${j}`;
+          cellDiv.dataset.yCoord = `${i}`;
+          gameboard.appendChild(cellDiv);
+        }
       }
     }
   });
@@ -160,7 +162,7 @@ const enableDragAndDrop = () => {
             }
           }
         } else {
-          if (y >= length) {
+          if (y >= length - 1) {
             if (length === 2) {
               if (!cell.classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.contains('disabled')) {
                 cell.appendChild(dragging);
@@ -181,14 +183,6 @@ const enableDragAndDrop = () => {
           }
         }
       }
-
-
-
-      if (!cell.classList.contains('disabled')) {
-        if (length > 1) {
-          
-        }
-      }
     });
   });
 };
@@ -204,7 +198,7 @@ const enableRotation = () => {
       const y = Number(parent.dataset.yCoord);
 
       if (position === 'horizontal') {
-        if (y >= length) {
+        if (y >= length - 1) {
           if (length === 2) {
             if (!document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.contains('disabled')) {
               ship.dataset.position = 'vertical';
@@ -287,16 +281,17 @@ const enableRotation = () => {
 
 const generateShips = () => {
   const coordinates = generateRandomShipCoordinates();
-  const grid = document.querySelector('#computer');
+  const grid = document.querySelector('#player');
 
   coordinates.forEach((coord) => {
+    console.log(coord);
     if (typeof coord[0] === 'number') {
       let [x, y] = coord;
       let newShip = document.createElement('div');
       newShip.classList.add('draggable');
       newShip.dataset.length = '1';
       newShip.draggable = 'true';
-      grid.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y + 1}"]`).appendChild(newShip);
+      grid.querySelector(`[data-x-coord="${x}"][data-y-coord="${y}"]`).appendChild(newShip);
     } else {
       if (coord.length === 2) {
         let [x, y] = coord[0];
@@ -310,9 +305,10 @@ const generateShips = () => {
           newShip.dataset.position = 'horizontal';
         } else {
           newShip.dataset.position = 'vertical';
+          [x, y] = coord[1];
         }
 
-        grid.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y + 1}"]`).appendChild(newShip);
+        grid.querySelector(`[data-x-coord="${x}"][data-y-coord="${y}"]`).appendChild(newShip);
       }
 
       if (coord.length === 3) {
@@ -327,11 +323,36 @@ const generateShips = () => {
           newShip.dataset.position = 'horizontal';
         } else {
           newShip.dataset.position = 'vertical';
+          [x, y] = coord[2];
         }
 
-        grid.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y + 1}"]`).appendChild(newShip);
+        grid.querySelector(`[data-x-coord="${x}"][data-y-coord="${y}"]`).appendChild(newShip);
+      }
+
+      if (coord.length === 4) {
+        let [x, y] = coord[0];
+        let newShip = document.createElement('div');
+        newShip.classList.add('draggable');
+        newShip.dataset.length = '4';
+        newShip.draggable = 'true';
+
+        let [a, b] = coord[1];
+        if (x < a) {
+          newShip.dataset.position = 'horizontal';
+        } else {
+          newShip.dataset.position = 'vertical';
+          [x, y] = coord[3];
+        }
+
+        grid.querySelector(`[data-x-coord="${x}"][data-y-coord="${y}"]`).appendChild(newShip);
       }
     }
+  });
+
+  const spreadCoord = spreadCoordinateArray(coordinates);
+  spreadCoord.forEach((coord) => {
+    let [x, y] = coord;
+    grid.querySelector(`[data-x-coord="${x}"][data-y-coord="${y}"]`).classList.add('disabled');
   })
 }
 

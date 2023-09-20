@@ -51,11 +51,11 @@ main {
   position: relative;
 }
 
-.cell[data-x-coord="10"] {
+.cell[data-x-coord="9"] {
   border-right: 1px solid black;
 }
 
-.cell[data-y-coord="1"] {
+.cell[data-y-coord="0"] {
   border-bottom: 1px solid black;
 }
 
