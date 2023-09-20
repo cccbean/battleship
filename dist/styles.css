@@ -17,10 +17,21 @@ main {
 }
 
 .grid-wrapper {
+  position: relative;
   aspect-ratio: 1;
   display: grid;
   grid-template: 1fr min-content / min-content 1fr;
   gap: 1rem;
+}
+
+.whiteout {
+  display: none;
+  background-color: white;
+  opacity: 0.5;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
 }
 
 .x-axis {
@@ -106,4 +117,12 @@ main {
 .draggable[data-length="4"][data-position="vertical"] {
   background: linear-gradient(to bottom, red 25%, 0%, pink);
   height: calc(400% + 3px);
+}
+
+#computer .cell {
+  cursor: pointer;
+}
+
+#computer .cell:hover {
+  background-color: lightgray;
 }

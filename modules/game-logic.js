@@ -56,7 +56,6 @@ const Gameboard = (shipCoordinates) => {
 const Player = (shipCoordinates) => {
   return {
     gameboard: Gameboard(shipCoordinates),
-    isTurn: false,
     isComputer: false,
     computerTurn(opponent) {
       let randomX = Math.floor(Math.random() * 10);
@@ -65,7 +64,7 @@ const Player = (shipCoordinates) => {
 
       if (!opponent.gameboard.prevAttacks.includes(randomCoordinate.toString())) {
         opponent.gameboard.receiveAttack(randomCoordinate);
-        return;
+        return randomCoordinate;
       } else {
         this.computerTurn(opponent);
       }
@@ -173,4 +172,11 @@ const spreadCoordinateArray = (coordinateArray) => {
   return spreadArray;
 }
 
-export { Ship, Gameboard, Player, generateRandomShipCoordinates, spreadCoordinateArray };
+const createComputer = () => {
+  const shipCoord = generateRandomShipCoordinates();
+  const computer = Player(shipCoord);
+  computer.isComputer = true;
+  return computer;
+}
+
+export { Ship, Gameboard, Player, generateRandomShipCoordinates, spreadCoordinateArray, createComputer };

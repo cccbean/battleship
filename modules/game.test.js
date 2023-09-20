@@ -135,7 +135,6 @@ test('Gameboard.allShipsSunk works when false, multiple ships', () => {
 test('Can create new Player', () => {
   const testPlayer = Player([[0,0]]);
   const testGameboard = Gameboard([[0,0]])
-  expect(testPlayer.isTurn).toBe(false);
   expect(testPlayer.isComputer).toBe(false);
   expect(JSON.stringify(testPlayer.gameboard)).toBe(JSON.stringify(testGameboard));
 })
@@ -144,7 +143,6 @@ test('Can create new Computer', () => {
   const testComputer = Player([[0,0]]);
   testComputer.isComputer = true;
   const testGameboard = Gameboard([[0,0]])
-  expect(testComputer.isTurn).toBe(false);
   expect(testComputer.isComputer).toBe(true);
   expect(JSON.stringify(testComputer.gameboard)).toBe(JSON.stringify(testGameboard));
 })

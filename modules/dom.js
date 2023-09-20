@@ -19,7 +19,8 @@ const generateCells = () => {
 
 const enableDragAndDrop = () => {
   const draggables = document.querySelectorAll('.draggable');
-  const cells = document.querySelectorAll('.cell');
+  const grid = document.querySelector('#player');
+  const cells = grid.querySelectorAll('.cell');
 
   draggables.forEach((draggable) => {
     draggable.addEventListener('dragstart', (e) => {
@@ -355,4 +356,14 @@ const generateShips = () => {
   })
 }
 
-export { generateCells, enableDragAndDrop, enableRotation, generateShips };
+const disableDragAndDrop = () => {
+  const draggables = document.querySelectorAll('[draggable="true"]');
+  draggables.forEach((div) => {
+    div.draggable = false;
+    div.style.cursor = 'default';
+    div.style.pointerEvents = 'none';
+    div.classList.add('disabled')
+  });
+}
+
+export { generateCells, enableDragAndDrop, enableRotation, generateShips, disableDragAndDrop };
