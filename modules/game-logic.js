@@ -89,8 +89,8 @@ const generateRandomShipCoordinates = () => {
 
   while (coord.length < 7) {
     let coord2 = [];
-    let randomX = Math.floor(Math.random() * 10);
-    let randomY = Math.floor(Math.random() * 10);
+    let randomX = Math.floor(Math.random() * 9);
+    let randomY = Math.floor(Math.random() * 9);
     let randomCoordinate = [randomX, randomY];
     let randomOrientation = Math.round(Math.random());
     coord2.push(randomCoordinate);
@@ -110,8 +110,8 @@ const generateRandomShipCoordinates = () => {
 
   while (coord.length < 9) {
     let coord3 = [];
-    let randomX = Math.floor(Math.random() * 10);
-    let randomY = Math.floor(Math.random() * 10);
+    let randomX = Math.floor(Math.random() * 8);
+    let randomY = Math.floor(Math.random() * 8);
     let randomCoordinate = [randomX, randomY];
     let randomOrientation = Math.round(Math.random());
     coord3.push(randomCoordinate);
@@ -133,8 +133,8 @@ const generateRandomShipCoordinates = () => {
 
   while (coord.length < 10) {
     let coord4 = [];
-    let randomX = Math.floor(Math.random() * 10);
-    let randomY = Math.floor(Math.random() * 10);
+    let randomX = Math.floor(Math.random() * 7);
+    let randomY = Math.floor(Math.random() * 7);
     let randomCoordinate = [randomX, randomY];
     let randomOrientation = Math.round(Math.random());
     coord4.push(randomCoordinate);
@@ -173,4 +173,4 @@ const spreadCoordinateArray = (coordinateArray) => {
   return spreadArray;
 }
 
-export { Ship, Gameboard, Player, generateRandomShipCoordinates };
+export { Ship, Gameboard, Player, generateRandomShipCoordinates, spreadCoordinateArray };
