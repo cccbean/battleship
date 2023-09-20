@@ -1,4 +1,5 @@
-import {generateCells, enableDragAndDrop, enableRotation} from "../modules/dom.js";
+import {generateCells, enableDragAndDrop, enableRotation, generateShips} from "../modules/dom.js";
 
+generateShips();
 enableDragAndDrop();
 enableRotation();

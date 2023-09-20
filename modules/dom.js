@@ -1,3 +1,5 @@
+import { generateRandomShipCoordinates } from "./game-logic.js";
+
 const generateCells = () => {
   const gameboardDiv = document.querySelectorAll('.grid');
   gameboardDiv.forEach((gameboard) => {
@@ -122,37 +124,75 @@ const enableDragAndDrop = () => {
     });
   });
 
-  // Check for disabled cells along the full length of the ship, not just the head
   cells.forEach((cell) => {
     cell.addEventListener('dragover', (e) => {
       e.preventDefault();
 
       const dragging = document.querySelector('.dragging');
-      const length = dragging.dataset.length;
+      const length = Number(dragging.dataset.length);
       const position = dragging.dataset.position;
+      const x = Number(cell.dataset.xCoord);
+      const y = Number(cell.dataset.yCoord);
 
-      if (!cell.classList.contains('disabled')) {
-        if (length > 1) {
-          if (position === 'horizontal') {
-            const x = Number(cell.dataset.xCoord);
-            if (x <= 10 - length + 1) {
-              cell.appendChild(dragging);
+      if (length === 1) {
+        if (!cell.classList.contains('disabled')) {
+          cell.appendChild(dragging);
+        }
+      } else {
+        if (position === 'horizontal') {
+          if (x <= 10 - length + 1) {
+            if (length === 2) {
+              if (!cell.classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.contains('disabled')) {
+                cell.appendChild(dragging);
+              }
             }
-          } else {
-            const y = Number(cell.dataset.yCoord);
-            if (y >= length) {
-              cell.appendChild(dragging);
+
+            if (length === 3) {
+              if (!cell.classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.contains('disabled')) {
+                cell.appendChild(dragging);
+              }
+            }
+
+            if (length === 4) {
+              if (!cell.classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 3}"][data-y-coord="${y}"]`).classList.contains('disabled')) {
+                cell.appendChild(dragging);
+              }
             }
           }
         } else {
-          cell.appendChild(dragging);
+          if (y >= length) {
+            if (length === 2) {
+              if (!cell.classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.contains('disabled')) {
+                cell.appendChild(dragging);
+              }
+            }
+
+            if (length === 3) {
+              if (!cell.classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.contains('disabled')) {
+                cell.appendChild(dragging);
+              }
+            }
+
+            if (length === 4) {
+              if (!cell.classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 3}"]`).classList.contains('disabled')) {
+                cell.appendChild(dragging);
+              }
+            }
+          }
+        }
+      }
+
+
+
+      if (!cell.classList.contains('disabled')) {
+        if (length > 1) {
+          
         }
       }
     });
   });
 };
 
-// Rotate has to check for disabled cells too...
 const enableRotation = () => {
   const ships = document.querySelectorAll('.draggable');
   ships.forEach((ship) => {
@@ -165,58 +205,79 @@ const enableRotation = () => {
 
       if (position === 'horizontal') {
         if (y >= length) {
-          ship.dataset.position = 'vertical';
-
           if (length === 2) {
-            document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.remove('disabled');
+            if (!document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.contains('disabled')) {
+              ship.dataset.position = 'vertical';
 
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.remove('disabled');
+
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.add('disabled'); 
+            }
           }
 
           if (length === 3) {
-            document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.remove('disabled');
-            document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.remove('disabled');
+            if (!document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.contains('disabled')) {
+              ship.dataset.position = 'vertical';
 
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.add('disabled');
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.remove('disabled');
+              document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.remove('disabled');
+  
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.add('disabled');
+            }
+
           }
 
           if (length === 4) {
-            document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.remove('disabled');
-            document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.remove('disabled');
-            document.querySelector(`[data-x-coord="${x + 3}"][data-y-coord="${y}"]`).classList.remove('disabled');
+            if (!document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 3}"]`).classList.contains('disabled')) {
+              ship.dataset.position = 'vertical';
 
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.add('disabled');
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.add('disabled');
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 3}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.remove('disabled');
+              document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.remove('disabled');
+              document.querySelector(`[data-x-coord="${x + 3}"][data-y-coord="${y}"]`).classList.remove('disabled');
+  
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 3}"]`).classList.add('disabled');
+            }
           }
         }
       } else {
         if (x <= 10 - length + 1) {
-          ship.dataset.position = 'horizontal';
-
           if (length === 2) {
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.remove('disabled');
+            if (!document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.contains('disabled')) {
+              ship.dataset.position = 'horizontal';
 
-            document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.remove('disabled');
+
+              document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.add('disabled');
+            }
           }
 
           if (length === 3) {
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.remove('disabled');
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.remove('disabled');
+            if (!document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.contains('disabled')) {
+              ship.dataset.position = 'horizontal';
 
-            document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.add('disabled');
-            document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.remove('disabled');
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.remove('disabled');
+  
+              document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.add('disabled');
+            }
           }
 
           if (length === 4) {
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.remove('disabled');
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.remove('disabled');
-            document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 3}"]`).classList.remove('disabled');
+            if (!document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 3}"][data-y-coord="${y}"]`).classList.contains('disabled')) {
+              ship.dataset.position = 'horizontal';
 
-            document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.add('disabled');
-            document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.add('disabled');
-            document.querySelector(`[data-x-coord="${x + 3}"][data-y-coord="${y}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 1}"]`).classList.remove('disabled');
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 2}"]`).classList.remove('disabled');
+              document.querySelector(`[data-x-coord="${x}"][data-y-coord="${y - 3}"]`).classList.remove('disabled');
+  
+              document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x + 2}"][data-y-coord="${y}"]`).classList.add('disabled');
+              document.querySelector(`[data-x-coord="${x + 3}"][data-y-coord="${y}"]`).classList.add('disabled');
+            }
           }
         }
       }
@@ -224,4 +285,54 @@ const enableRotation = () => {
   });
 };
 
-export { generateCells, enableDragAndDrop, enableRotation };
+const generateShips = () => {
+  const coordinates = generateRandomShipCoordinates();
+  const grid = document.querySelector('#computer');
+
+  coordinates.forEach((coord) => {
+    if (typeof coord[0] === 'number') {
+      let [x, y] = coord;
+      let newShip = document.createElement('div');
+      newShip.classList.add('draggable');
+      newShip.dataset.length = '1';
+      newShip.draggable = 'true';
+      grid.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y + 1}"]`).appendChild(newShip);
+    } else {
+      if (coord.length === 2) {
+        let [x, y] = coord[0];
+        let newShip = document.createElement('div');
+        newShip.classList.add('draggable');
+        newShip.dataset.length = '2';
+        newShip.draggable = 'true';
+
+        let [a, b] = coord[1];
+        if (x < a) {
+          newShip.dataset.position = 'horizontal';
+        } else {
+          newShip.dataset.position = 'vertical';
+        }
+
+        grid.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y + 1}"]`).appendChild(newShip);
+      }
+
+      if (coord.length === 3) {
+        let [x, y] = coord[0];
+        let newShip = document.createElement('div');
+        newShip.classList.add('draggable');
+        newShip.dataset.length = '3';
+        newShip.draggable = 'true';
+
+        let [a, b] = coord[1];
+        if (x < a) {
+          newShip.dataset.position = 'horizontal';
+        } else {
+          newShip.dataset.position = 'vertical';
+        }
+
+        grid.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y + 1}"]`).appendChild(newShip);
+      }
+    }
+  })
+}
+
+export { generateCells, enableDragAndDrop, enableRotation, generateShips };

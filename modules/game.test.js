@@ -1,4 +1,4 @@
-import { Ship, Gameboard, Player } from './game-logic.js';
+import { Ship, Gameboard, Player, generateRandomShipCoordinates } from './game-logic.js';
 
 test('Ship properties', () => {
   const testShip = Ship(2);
@@ -173,3 +173,43 @@ test('Computer won\'t attack same coordinate', () => {
   expect(testPlayer.gameboard.prevAttacks.length).toBe(100);
 });
 
+test('Random ship coordinates meet the format', () => {
+  const testCoord = generateRandomShipCoordinates();
+  // [[0,0], [0,1], [0,2], [0,3], [[1,1], [1,2]], [[2,1], [2,2]], [[3,1], [3,2]], [[4,1], [4,2], [4,3]], [[5,1], [5,2], 5,3], [[6,1], [6,2], [6,3], [6,4]]]
+  expect(testCoord.length).toBe(10);
+  expect(typeof testCoord[0][0]).toBe('number');
+  expect(typeof testCoord[1][0]).toBe('number');
+  expect(typeof testCoord[2][0]).toBe('number');
+  expect(typeof testCoord[3][0]).toBe('number');
+  expect(typeof testCoord[4][0]).toBe('object');
+  expect(testCoord[4].length).toBe(2);
+  expect(typeof testCoord[5][0]).toBe('object');
+  expect(testCoord[5].length).toBe(2);
+  expect(typeof testCoord[6][0]).toBe('object');
+  expect(testCoord[6].length).toBe(2);
+  expect(typeof testCoord[7][0]).toBe('object');
+  expect(testCoord[7].length).toBe(3);
+  expect(typeof testCoord[8][0]).toBe('object');
+  expect(testCoord[8].length).toBe(3);
+  expect(typeof testCoord[9][0]).toBe('object');
+  expect(testCoord[9].length).toBe(4);
+});
+
+test('Random ship coordinates don\'t overlap', () => {
+  for (let i = 0; i < 50; i++) {
+    let testCoord = generateRandomShipCoordinates();
+    let spreadCoord = [];
+    testCoord.forEach((array) => {
+      if (typeof array[0] === 'number') {
+        spreadCoord.push(array);
+      } else {
+        array.forEach((array2) => {
+          spreadCoord.push(array2);
+        })
+      }
+    })
+    let strCoord = spreadCoord.map((coord) => coord.join(','));
+    let uniqueCoord = new Set(strCoord);
+    expect([...uniqueCoord].length).toBe(20);
+  }
+}) 
