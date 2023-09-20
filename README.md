@@ -1,6 +1,8 @@
-1. Player sets up grid, then clicks new game
-2. Player grid becomes unclickable
-3. Computer and player objects has to be generated, with computer having a random grid and the player having the grid they set up
-4. Player can click on computer grid to attack computer
-5. Computer takes a turn, making the computer grid unclickable
-6. Rinse and repeat until all ships are sunk for one of them
+# Battleship
+## Things that could be improved
+- Overall UI and responsiveness
+- Make computer board unclickable at start with the whiteout
+
+## Potential additions
+- smarter AI for computer to search around a specific coordinate after getting a hit
+- option to play with 2 players instead of just against a computer
