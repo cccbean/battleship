@@ -142,7 +142,7 @@ const enableDragAndDrop = () => {
         }
       } else {
         if (position === 'horizontal') {
-          if (x <= 10 - length + 1) {
+          if (x <= 9 - length + 1) {
             if (length === 2) {
               if (!cell.classList.contains('disabled') && !document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.contains('disabled')) {
                 cell.appendChild(dragging);
@@ -237,7 +237,7 @@ const enableRotation = () => {
           }
         }
       } else {
-        if (x <= 10 - length + 1) {
+        if (x <= 9 - length + 1) {
           if (length === 2) {
             if (!document.querySelector(`[data-x-coord="${x + 1}"][data-y-coord="${y}"]`).classList.contains('disabled')) {
               ship.dataset.position = 'horizontal';
@@ -284,13 +284,12 @@ const generateShips = () => {
   const grid = document.querySelector('#player');
 
   coordinates.forEach((coord) => {
-    console.log(coord);
     if (typeof coord[0] === 'number') {
       let [x, y] = coord;
       let newShip = document.createElement('div');
       newShip.classList.add('draggable');
       newShip.dataset.length = '1';
-      newShip.draggable = 'true';
+      newShip.draggable = true;
       grid.querySelector(`[data-x-coord="${x}"][data-y-coord="${y}"]`).appendChild(newShip);
     } else {
       if (coord.length === 2) {

@@ -70,7 +70,7 @@ main {
 }
 
 .dragging,
-.draggable:hover {
+.draggable:hover:not(.disabled) {
   opacity: 0.9;
 }
 
